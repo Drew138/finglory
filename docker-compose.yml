@@ -3,19 +3,16 @@ services:
 
   django:
     build:
-      context: ./Finglory
+      context: ./Finglory/
     command: >
       bash -c "python3 manage.py collectstatic --noinput &&
-               python3 manage.py migrate &&
-               python3 manage.py runserver 0.0.0.0:7777"
+              python3 manage.py migrate &&
+              python3 manage.py runserver 0.0.0.0:7777"
     environment:
       - STATIC_ROOT=/app/static
       - DATABASE_URL=psql://postgres:local-password@postgres/app-db
-      - DEBUG=true
     networks:
       - app-network
-    stdin_open: true
-    tty: true
     expose:
       - "7777"
     ports:
@@ -23,7 +20,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - .:/app
+      - ./FinGlory/:/app
 
   postgres:
     image: postgres:13.1-alpine

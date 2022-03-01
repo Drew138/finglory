@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Gastos(models.TextChoices):
-    class TipoRecurrencia(models.Model):
+    class TipoRecurrencia(models.TextChoices):
         mensual = 'Mensual'
         anual = 'Anual'
         no_recurrente = 'No recurrente'
@@ -17,7 +17,7 @@ class Gastos(models.TextChoices):
         compromisos_bancarios = 'Compromisos Bancarios'
         otros = 'Otros'
     categoria = models.CharField(max_length=30, choices = CategoriaGastos.choices, default = CategoriaGastos.otros )
-    recurrencia = models.charField(max_length=20, choices = TipoRecurrencia.choices, default = TipoRecurrencia.Mensual)
+    recurrencia = models.charField(max_length=20, choices = TipoRecurrencia.choices, default = TipoRecurrencia.mensual)
     nombre = models.CharField(max_length=30, null=False)
     fecha = models.DateTimeField(null=False, blank=True)
     cantidad = models.IntegerField(default=0, blank=True, null=False)
@@ -25,7 +25,7 @@ class Gastos(models.TextChoices):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Ingresos(models.TextChoices):
-    class TipoRecurrencia(models.Model):
+    class TipoRecurrencia(models.TextChoices):
         mensual = 'Mensual'
         anual = 'Anual'
         no_recurrente = 'No recurrente'
