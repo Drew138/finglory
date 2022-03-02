@@ -76,7 +76,14 @@ WSGI_APPLICATION = 'FinGlory.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': os.getenv('DATABASE_URL', '')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME', ''),
+        "USER": os.getenv("USER", ''),
+        'PASSWORD': os.getenv('PASSWORD', ''),
+        'HOST': os.getenv('HOST', ''),
+        'PORT': os.getenv('PORT', '')
+    }
 }
 
 # Password validation
