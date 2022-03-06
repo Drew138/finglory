@@ -21,14 +21,10 @@ class Gastos(models.Model):
     nombre = models.CharField(max_length=30, null=False)
     fecha = models.DateTimeField(null=False, blank=True)
     cantidad = models.IntegerField(default=0, blank=True, null=False)
-    factura = models.ImageField(upload_to = 'images')
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    factura = models.ImageField(upload_to = 'app/images/', blank=True)
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class Ingresos(models.Model):
-
-
-
-    
+class Ingresos(models.Model):    
     class TipoRecurrencia(models.TextChoices):
         mensual = 'Mensual'
         anual = 'Anual'
