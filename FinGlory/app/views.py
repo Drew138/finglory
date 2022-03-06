@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from .models import *
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 def home(request):
     return render(request, 'home.html')
@@ -29,13 +30,6 @@ def registrarGastosView(request, *args, **kwargs):
                     return redirect('/gastos/') #Pendiente a revisar
                 else:
                     messages.error(request, form.errors)
-            elif 'buscar' in request.POST:
-                searchTerm = request.GET.get('buscar')
-                if searchTerm:
-                    gastos = Gastos.objects.filter(title__icontains=searchTerm)
-                else:
-                    gastos = Gastos.objects.all()
-                return render(request, 'form.html', {'searchTerm': searchTerm, 'gastos': gastos})
         else:
             form = RegistrarGastosForm(instance=instance)
     elif request.method == 'POST':
@@ -46,19 +40,10 @@ def registrarGastosView(request, *args, **kwargs):
                 return redirect('/gastos/') #Pendiente a revisar
             else:
                 messages.error(request, form.errors)
-        elif 'buscar' in request.POST:
-            pk = request.POST.get('primary_key')
-            if pk is None or Gastos.objects.filter(pk=pk).count() <= 0:
-                messages.error(request, "Gasto no registrados.")
-                form =  RegistrarGastosForm()
-            else:
-                return redirect("{% url 'registrarGastos' pk=post.gastos.id%}") #Pendiente a revisar
     else: 
-        form =  RegistrarGastosForm()    
-    
-    context = {'form': form, 'disabled': (kwargs.get('pk', None) != None)}
+        form =  RegistrarGastosForm()
 
-    return render(request, 'form.html', context)
+    return render(request, 'gastos.html', {'form': form} )
 
 
 
@@ -75,13 +60,6 @@ def registrarIngresosView(request, *args, **kwargs):
                     return redirect('/ingresos/') #Pendiente a revisar
                 else:
                     messages.error(request, form.errors)
-            elif 'buscar' in request.POST:
-                searchTerm = request.GET.get('buscar')
-                if searchTerm:
-                    ingresos = Ingresos.objects.filter(title__icontains=searchTerm)
-                else:
-                    ingresos = Ingresos.objects.all()
-                return render(request, 'form.html', {'searchTerm': searchTerm, 'ingresos': ingresos})
         else:
             form = RegistrarIngresosForm(instance=instance)
     elif request.method == 'POST':
@@ -92,13 +70,6 @@ def registrarIngresosView(request, *args, **kwargs):
                 return redirect('/ingresos/') #Pendiente a revisar
             else:
                 messages.error(request, form.errors)
-        elif 'buscar' in request.POST:
-            searchTerm = request.GET.get('buscar')
-            if searchTerm:
-                ingresos = Ingresos.objects.filter(title__icontains=searchTerm)
-            else:
-                ingresos = Ingresos.objects.all()
-            return render(request, 'form.html', {'searchTerm': searchTerm, 'ingresos': ingresos})
     else: 
         form =  RegistrarIngresosForm()    
     

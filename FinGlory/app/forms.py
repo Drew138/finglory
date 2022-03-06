@@ -32,7 +32,7 @@ class RegistrarGastosForm(forms.ModelForm):
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'recurrencia': forms.Select(attrs={'class': 'form-control'}),
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'fecha': DateTimeInput(attrs={'class': 'form-control'}),
+            'fecha': forms.DateTimeInput(attrs={'class': 'form-control'}),
             'cantidad': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
