@@ -11,4 +11,4 @@ def eliminar_ingresos(request):
     return render(request, 'eliminar_ingresos/eliminar_ingreso.html')
 
 def eliminar_gastos(request):
-    return render(request, 'eliminar_gastos/eliminar_gastos.html')
+    return render(request, 'paginas/gastos.html')
