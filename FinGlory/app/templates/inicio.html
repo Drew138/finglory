@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+
+<div id="logreg-forms">
+    <form class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+
+        {{ form|crispy}}
+
+        <a href="/home/">
+            <button class="btn btn-success btn-block" type="submit" id="home"><i class="fas fa-sign-in-alt"></i> login</button>
+        </a>
+
+        <a href="#" id="forgot_pswd">Forgot password?</a>
+        <hr>
+<!-- <p>Don't have an account!</p>  -->
+        <a href="/registrarUsuario/">
+            <button class="btn btn-primary btn-block" type="button" id="registrarUsuario"><i
+                    class="fas fa-user-plus"></i>
+                Sign up New Account</button>
+        </a>
+    </form>
+</div>
+
+{% endblock %}

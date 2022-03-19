@@ -1,0 +1,42 @@
+.main-body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 80px;
+}
+
+.barraBusqueda{
+    width: 500px;
+    height: auto;
+}
+
+.button {
+    justify-items: center;
+    background-color: #a7a7a7;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.registroInicio{  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#table-gastos{
+    width: 100%;
+}
+
+.tabla{
+    width: 90vw;
+}
+
+.forms{
+    width: 50vw;
+}

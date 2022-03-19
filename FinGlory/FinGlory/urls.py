@@ -16,12 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views as appViews
-from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', appViews.home),
-    path('ingresos/', appViews.eliminar_ingresos),
-    path('gastos/', appViews.eliminar_gastos),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', appViews.login, name='login'),
+    path('home/', appViews.home, name='home'),
+    path('gastos/', appViews.gastos, name='gastos'),
+    path('ingresos/', appViews.ingresos, name='ingresos'),
+    path('registrarGastos/', appViews.registrarGastosView, name='registrarGastos'),
+    path('registrarUsuario/', appViews.registrarUsuarioView, name='registrarUsuario'),
+    path('registrarIngresos/', appViews.registrarIngresosView,name='registrarIngresos'),
+    #  path('borrarIngresos/', appViews.eliminar_ingresos),
+    # path('borrarGastos/', appViews.eliminar_gastos) 
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
