@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'app',
 ]
 
@@ -76,14 +77,15 @@ WSGI_APPLICATION = 'FinGlory.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'FinGloryLocal', 
-        'USER': 'postgres', 
-        'PASSWORD': 'mmunozc',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME', ''),
+        "USER": os.getenv("USER", ''),
+        'PASSWORD': os.getenv('PASSWORD', ''),
+        'HOST': os.getenv('HOST', ''),
+        'PORT': os.getenv('PORT', '')
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -128,6 +130,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1']
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+EMAIL_HOST_USER = 'websitepruebas2@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'Poiuy0987*'

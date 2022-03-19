@@ -35,3 +35,4 @@ class Ingresos(models.Model):
     fecha = models.DateTimeField(null=False, blank=True) 
     cantidad = models.IntegerField(default=0, blank=True, null=False)
 
+

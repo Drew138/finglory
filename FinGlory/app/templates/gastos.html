@@ -1,5 +1,4 @@
-{% extends "layout.html" %}
-
+{% extends "home.html" %}
 
 {% block content %}
 
@@ -14,8 +13,8 @@
 	</form>
 </div>
 
-<div>
-	<table class="table table-striped">
+<div class="tabla">
+	<table class="table table-striped" id="table-gastos">
 		<thead>
 			<tr>
 				<td>#</td>
@@ -46,29 +45,8 @@
 </div>
 
 <div class="">
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-		data-bs-whatever="@mdo">Registrar</button>
-
+    <a href="{% url 'registrarGastos' %}">
+		<button type="button" class="btn btn-primary"><span><span>Registrar Gastos</span></span></button>
+    </a>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form action="/gastos/" method="POST">
-					<h1>PORQUE NO ME RECIVE EL FORM</h1>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Send message</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-{% endblock %}
+{%endblock%}

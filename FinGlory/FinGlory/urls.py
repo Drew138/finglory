@@ -22,13 +22,15 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', appViews.home),
+    path('', appViews.login, name='login'),
+    path('home/', appViews.home, name='home'),
     path('gastos/', appViews.gastos, name='gastos'),
     path('ingresos/', appViews.ingresos, name='ingresos'),
     path('registrarGastos/', appViews.registrarGastosView, name='registrarGastos'),
+    path('registrarUsuario/', appViews.registrarUsuarioView, name='registrarUsuario'),
     path('registrarIngresos/', appViews.registrarIngresosView,name='registrarIngresos'),
-    path('borrarIngresos/', appViews.eliminar_ingresos),
-    path('borrarGastos/', appViews.eliminar_gastos)
+    #  path('borrarIngresos/', appViews.eliminar_ingresos),
+    # path('borrarGastos/', appViews.eliminar_gastos) 
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
