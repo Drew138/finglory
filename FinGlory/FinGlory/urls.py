@@ -26,7 +26,9 @@ urlpatterns = [
     path('gastos/', appViews.gastos, name='gastos'),
     path('ingresos/', appViews.ingresos, name='ingresos'),
     path('registrarGastos/', appViews.registrarGastosView, name='registrarGastos'),
-    path('registrarIngresos/', appViews.registrarIngresosView, name='registrarIngresos')
+    path('registrarIngresos/', appViews.registrarIngresosView,name='registrarIngresos'),
+    path('borrarIngresos/', appViews.eliminar_ingresos),
+    path('borrarGastos/', appViews.eliminar_gastos)
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

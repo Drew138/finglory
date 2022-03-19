@@ -1,0 +1,52 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Categoria</th>
+      <th scope="col">Recurrencia</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for gasto in gastos %}
+      <td>{{ gasto.categoria }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for gasto in gastos %}
+      <td>{{ gasto.recurrencia }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for gasto in gastos %}
+      <td>{{ gasto.nombre }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for gasto in gastos %}
+      <td>{{ gasto.fecha }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for gasto in gastos %}
+      <td>{{ gasto.cantidad }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for gasto in gastos %}
+      <td>
+          <a class="btn btn-outline-info btn-sm btn-block" href="">Actualizar Gasto</a>
+          <a class="btn btn-outline-danger btn-sm btn-block" href="">Borrar Gasto</a>
+        </td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+{% endblock content %}

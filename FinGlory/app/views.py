@@ -4,6 +4,8 @@ from .models import *
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
+#create your views here
+
 def home(request):
     return render(request, 'home.html')
 
@@ -77,3 +79,9 @@ def registrarIngresosView(request, *args, **kwargs):
 
     return render(request, 'form.html', context)
     
+
+def eliminar_ingresos(request):
+    return render(request, 'eliminar_ingresos/eliminar_ingreso.html')
+
+def eliminar_gastos(request):
+    return render(request, 'paginas/gastos.html')
