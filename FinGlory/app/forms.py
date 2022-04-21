@@ -25,12 +25,12 @@ class RegistrarGastosForm(forms.ModelForm):
             'factura'
         ]
         labels = {
-            'categoria': '¿Que tipo de gastos es?',
-            'recurrencia': '¿Cada cuanto?',
-            'nombre': '¿Que gasto es?',
-            'fecha': '¿Cundo fue?',
-            'cantidad': '¿Cuanto gastaste?',
-            'factura': 'Adjunta tu factura'
+            'categoria': '¿Qué tipo de gasto es?',
+            'recurrencia': '¿Cada cuánto?',
+            'nombre': '¿Qué gasto es?',
+            'fecha': '¿Cuándo fue?',
+            'cantidad': '¿Cuánto gastaste?',
+            'factura': 'Adjunte su factura'
         }
         widgets = {
             'categoria': forms.Select(attrs={'class': 'form-control'}),
@@ -52,10 +52,10 @@ class RegistrarIngresosForm(forms.ModelForm):
             'cantidad'
         ]
         labels = {
-            'recurrencia': '¿Cada cuanto?',
-            'nombre': '¿Que ingreso es?',
-            'fecha': '¿Cundo fue?',
-            'cantidad': '¿Cuanto ganaste?',
+            'recurrencia': '¿Cada cuánto?',
+            'nombre': '¿Qué ingreso es?',
+            'fecha': '¿Cuándo fue?',
+            'cantidad': '¿Cuánto ganaste?',
         }
         widgets = {
             'recurrencia': forms.Select(attrs={'class': 'form-control'}),

@@ -1,4 +1,4 @@
-from asyncio.windows_events import NULL
+# from asyncio.windows_events import NULL
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from .models import *
@@ -136,11 +136,11 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         print(user)
-        if user is not NULL:
-            form = login(request, user)
-            messages.success(request, f' wecome {username} !!')
-            return redirect('home')
-        else:
-            messages.info(request, f'account done not exit pls sign in')
+        # if user is not NULL:
+        #     form = login(request, user)
+        #     messages.success(request, f' wecome {username} !!')
+        #     return redirect('home')
+        # else:
+        #     messages.info(request, f'account done not exit pls sign in')
     form = AuthenticationForm()
     return render(request, 'inicio.html', {'form':form, 'title':'log in'})
