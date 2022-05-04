@@ -14,13 +14,15 @@
 	
 		<div class="modal-body">
 			{% for field in form %}
-			<div class="form-group{% if field.errors %} invalid{% endif %}">
-				<label for="{{ field.id_for_label }}">{{ field.label }}</label>
-				{{ field }}
-				{% for error in field.errors %}
-				<p class="help-block">{{ error }}</p>
-				{% endfor %}
-			</div>
+				{% if field != 'factura' or field != 'categoria' %}
+				<div class="form-group{% if field.errors %} invalid{% endif %}">
+					<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+					{{ field }}
+					{% for error in field.errors %}
+					<p class="help-block">{{ error }}</p>
+					{% endfor %}
+				</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	
