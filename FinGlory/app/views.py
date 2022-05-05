@@ -10,7 +10,7 @@ from .forms import UserRegisterForm
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-
+import json
 
 #create your views here
 
@@ -32,7 +32,6 @@ def ingresos(request):
     ingreso = Ingresos.objects.all()
     context = {'ingresos': ingreso}
     return render(request, 'ingresos.html', context)
-
 
 
 def registrarGastosView(request, *args, **kwargs):
@@ -144,3 +143,80 @@ def login(request):
         #     messages.info(request, f'account done not exit pls sign in')
     form = AuthenticationForm()
     return render(request, 'inicio.html', {'form':form, 'title':'log in'})
+
+def estadisticas(request):
+    alimentacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.alimentacion)])
+    hogar = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.hogar)])
+    entretenimiento = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.entretenimiento)])
+    educacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.educacion)])
+    compromisos_bancarios = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.compromisos_bancarios)])
+    otros = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.otros)])
+
+    category_data_source = {
+        'name': "Distribucion de Gastos",
+        "data": []
+    }
+
+    category_data_source['data'].append({
+       'name': 'Alimentacion',
+        'y': alimentacion,
+    })
+    category_data_source['data'].append({
+       'name': 'Hogar',
+        'y': hogar,
+    })
+    category_data_source['data'].append({
+       'name': 'Entretenimiento',
+        'y': entretenimiento,
+    })
+    category_data_source['data'].append({
+       'name': 'Compromisos Bancarios',
+        'y': compromisos_bancarios,
+    })
+    category_data_source['data'].append({
+       'name': 'Educacion',
+        'y': educacion,
+    })
+    category_data_source['data'].append({
+       'name': 'Otros',
+        'y': otros,
+    })
+
+
+    category_chart_data = {
+        'chart': {'type': 'pie'},
+        'title': {'text': "Distribucion de Gastos"},
+        'setOptions': {
+            'lang': {
+                'thousandsSep': ','
+            }
+        },
+        'accessibility': {
+            'announceNewData': {
+                'enabled': True
+            }
+        },
+        'plotOptions': {
+            'series': {
+                'dataLabels': {
+                    'enabled': True,
+                    'format': '{point.name}: <br>{point.percentage:.1f} %<br>total: {point.y}',
+                    'padding': 0,
+                    'style': {
+                        'fontSize': '10px'
+                    }
+                }
+            }
+        },
+        'tooltip': {
+            'headerFormat': '<span style="font-size:11px; color:#8e5ea2">{series.name}<br>{point.percentage:.1f} %'
+                            '</span><br>',
+            'pointFormat': '<span style="color:#3cba9f">{point.name}</span>: <b>{point.y}</b><br/>'
+                           
+        },
+        'series': [category_data_source],
+    }
+    context = {
+        'category_wise_pie_data': json.dumps(category_chart_data)
+    }
+    return render(request, 'estadisticas.html', context)  

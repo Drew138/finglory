@@ -29,6 +29,7 @@ urlpatterns = [
     path('registrarGastos/', appViews.registrarGastosView, name='registrarGastos'),
     path('registrarUsuario/', appViews.registrarUsuarioView, name='registrarUsuario'),
     path('registrarIngresos/', appViews.registrarIngresosView,name='registrarIngresos'),
+    path('estadisticas/', appViews.estadisticas, name='estadisticas'),
     #  path('borrarIngresos/', appViews.eliminar_ingresos),
     # path('borrarGastos/', appViews.eliminar_gastos) 
 ]
