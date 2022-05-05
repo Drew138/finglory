@@ -1,4 +1,4 @@
-# from asyncio.windows_events import NULL
+
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from .models import *
@@ -33,24 +33,13 @@ def ingresos(request):
     context = {'ingresos': ingreso}
     return render(request, 'ingresos.html', context)
 
+    if request.method == 'POST':
+        pass
+
 
 
 def registrarGastosView(request, *args, **kwargs):
-    if 'pk' in kwargs:
-        pk = kwargs['pk']
-        instance = get_object_or_404(Gastos, id=pk)
-        if request.method == 'POST':
-            form = RegistrarGastosForm(request.POST, instance=instance)
-            if 'crear' in request.POST:
-                form = RegistrarGastosForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                    return redirect('/gastos/')  # Pendiente a revisar
-                else:
-                    messages.error(request, form.errors)
-        else:
-            form = RegistrarGastosForm(instance=instance)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         if 'crear' in request.POST:
             form = RegistrarGastosForm(request.POST)
             if form.is_valid():
@@ -67,21 +56,8 @@ def registrarGastosView(request, *args, **kwargs):
 
 
 def registrarIngresosView(request, *args, **kwargs):
-    if 'pk' in kwargs:
-        pk = kwargs['pk']
-        instance = get_object_or_404(Ingresos, id=pk)
-        if request.method == 'POST':
-            form = RegistrarIngresosForm(request.POST, instance=instance)
-            if 'crear' in request.POST:
-                form = RegistrarIngresosForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                    return redirect('/ingresos/')  # Pendiente a revisar
-                else:
-                    messages.error(request, form.errors)
-        else:
-            form = RegistrarIngresosForm(instance=instance)
-    elif request.method == 'POST':
+    
+    if request.method == 'POST':
         if 'crear' in request.POST:
             form = RegistrarIngresosForm(request.POST)
             if form.is_valid():
@@ -95,14 +71,39 @@ def registrarIngresosView(request, *args, **kwargs):
     context = {'form': form, 'disabled': (kwargs.get('pk', None) != None), 'nombre_modelo': 'Ingreso'}
 
     return render(request, 'form.html', context)
-    
 
-""" def eliminar_ingresos(request):
-    return render(request, 'eliminar_ingresos/eliminar_ingreso.html')
+def actualizarIngresosView(request, pk):
+    instance = get_object_or_404(Ingresos, id=pk)
+    if request.method == 'POST':
+        form = RegistrarIngresosForm(request.POST, instance=instance)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('/ingresos/')  # Pendiente a revisar
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = RegistrarIngresosForm(instance=instance)
 
-def eliminar_gastos(request):
-    return render(request, 'paginas/gastos.html') """
+    context = {'form': form, 'disabled': True, 'nombre_modelo': 'Ingreso'}
 
+    return render(request, 'form.html', context)
+
+def actualizarGastosView(request, pk):
+    instance = get_object_or_404(Gastos, id=pk)
+    if request.method == 'POST':
+            form = RegistrarGastosForm(request.POST, instance=instance)
+            if form.is_valid():
+                form.save()
+                return redirect('/gastos/')  # Pendiente a revisar
+            else:
+                messages.error(request, form.errors)
+    else:
+        form = RegistrarGastosForm(instance=instance)
+
+    context = {'form': form, 'disabled' : True, 'nombre_modelo': 'Gasto'}
+
+    return render(request, 'form.html', context)
 
 def registrarUsuarioView(request, *args, **kwargs):
     if request.method == 'POST':
@@ -144,3 +145,16 @@ def login(request):
         #     messages.info(request, f'account done not exit pls sign in')
     form = AuthenticationForm()
     return render(request, 'inicio.html', {'form':form, 'title':'log in'})
+
+
+def eliminarIngresosView(request, *args, **kwargs):
+    if 'pk' in kwargs:
+        pk = kwargs['pk']
+        Ingresos.objects.get(pk=pk).delete()
+    return redirect('/ingresos/')
+
+def eliminarGastosView(request, *args, **kwargs):
+    if 'pk' in kwargs:
+        pk = kwargs['pk']
+        Gastos.objects.get(pk=pk).delete()
+    return redirect('/gastos/')
