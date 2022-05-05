@@ -37,6 +37,8 @@
 				<td>{{gasto.fecha}}</td>
 				<td>{{gasto.cantidad}}</td>
 				<td>{{gasto.factura}}</td>
+				<td><a class = "btn btn-warning" href = "{% url "gastos/actualizarGastos" pk=gasto.id %}" > Editar </a></td>
+				<td><a class = "btn btn-danger" href = "{% url "gastos/eliminarGastos" pk=gasto.id %}" > Eliminar </a></td>
 			</tr>
 			{%endfor%}
 			{%endif%}
