@@ -9,14 +9,12 @@
 {% block content %}
 
 <div id="logreg-forms">
-    <form class="form-signin">
+    <form class="form-signin"  method="post" action="">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-
+        {% csrf_token %}
         {{ form|crispy}}
 
-        <a href="/home/">
-            <button class="btn btn-success btn-block" type="submit" id="home"><i class="fas fa-sign-in-alt"></i> login</button>
-        </a>
+        <button type="submit" id="submit">Login</button>
 
         <a href="#" id="forgot_pswd">Forgot password?</a>
         <hr>
