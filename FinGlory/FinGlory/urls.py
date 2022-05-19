@@ -18,24 +18,24 @@ from django.urls import path
 from app import views as appViews
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth.views import LoginView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', appViews.login, name='login'),
     path('home/', appViews.home, name='home'),
     path('gastos/', appViews.gastos, name='gastos'),
     path('ingresos/', appViews.ingresos, name='ingresos'),
     path('registrarGastos/', appViews.registrarGastosView, name='registrarGastos'),
-    path('registrarUsuario/', appViews.registrarUsuarioView, name='registrarUsuario'),
     path('registrarIngresos/', appViews.registrarIngresosView,name='registrarIngresos'),
     path('estadisticas/', appViews.estadisticas, name='estadisticas'),
-    #  path('borrarIngresos/', appViews.eliminar_ingresos),
-    # path('borrarGastos/', appViews.eliminar_gastos) 
     path('actualizarIngresos/<pk>/', appViews.actualizarIngresosView, name = 'ingresos/actualizarIngresos'),
     path('eliminarIngresos/<pk>/', appViews.eliminarIngresosView, name = 'ingresos/eliminarIngresos'),
     path('actualizarGastos/<pk>/', appViews.actualizarGastosView, name = 'gastos/actualizarGastos'),
     path('eliminarGastos/<pk>/', appViews.eliminarGastosView, name = 'gastos/eliminarGastos'),
+
+    path('', LoginView.as_view(template_name='inicio.html'), name='login'),
+    path('registrarUsuario/', appViews.registrarUsuarioView, name='registrarUsuario'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

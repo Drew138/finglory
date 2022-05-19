@@ -1,16 +1,16 @@
-from dataclasses import fields
 from pyexpat import model
-from django.forms import ModelForm
-from django import forms
 from matplotlib import widgets
-from .models import *
 
-from django.contrib.auth.models import User
+from dataclasses import fields
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
+from .models import *
+from django import forms
 
 
-class DateTimeInput(forms.DateTimeInput):
-    input_type = 'datetime-local'
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 class RegistrarGastosForm(forms.ModelForm):
@@ -35,8 +35,8 @@ class RegistrarGastosForm(forms.ModelForm):
         widgets = {
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'recurrencia': forms.Select(attrs={'class': 'form-control'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'fecha': forms.DateTimeInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre gasto'}),
+            'fecha': forms.DateInput(attrs={'class': 'form-control','placeholder': 'dd/mm/yyy'}),
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
             'factura': forms.FileInput(attrs={'class': 'form-control'}),
         }
@@ -59,16 +59,14 @@ class RegistrarIngresosForm(forms.ModelForm):
         }
         widgets = {
             'recurrencia': forms.Select(attrs={'class': 'form-control'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'fecha': forms.DateTimeInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre ingreso'}),
+            'fecha': forms.DateInput(attrs={'class': 'form-control','placeholder': 'dd/mm/yyy'}),
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length = 20)
-    last_name = forms.CharField(max_length = 20)
-    class Meta:
+class MyUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
