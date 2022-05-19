@@ -121,12 +121,26 @@ def registrarUsuarioView(request):
     return render(request,'registroUsuario.html', { 'form' : form})
 
 def estadisticas(request):
-    alimentacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.alimentacion)])
-    hogar = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.hogar)])
-    entretenimiento = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.entretenimiento)])
-    educacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.educacion)])
-    compromisos_bancarios = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.compromisos_bancarios)])
-    otros = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.otros)])
+
+    fecha_inicial = request.GET.get('fecha_inicial')
+    fecha_final = request.GET.get('fecha_final')
+    if fecha_inicial and fecha_final:
+
+        alimentacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.alimentacion, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+        hogar = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.hogar, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+        entretenimiento = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.entretenimiento, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+        educacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.educacion, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+        compromisos_bancarios = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.compromisos_bancarios, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+        otros = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.otros, fecha__gte=fecha_inicial, fecha__lte=fecha_final)])
+
+    else:
+        # print("here", flush=True)
+        alimentacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.alimentacion)])
+        hogar = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.hogar)])
+        entretenimiento = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.entretenimiento)])
+        educacion = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.educacion)])
+        compromisos_bancarios = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.compromisos_bancarios)])
+        otros = sum([gasto.cantidad for gasto in Gastos.objects.filter(categoria=Gastos.CategoriaGastos.otros)])
 
     category_data_source = {
         'name': "Distribucion de Gastos",

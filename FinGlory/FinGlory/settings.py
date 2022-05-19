@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +39,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'app',
 ]
+
+AUTH_USER_MODEL='app.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
